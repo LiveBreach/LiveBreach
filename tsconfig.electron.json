@@ -1,18 +1,22 @@
 {
-  "compilerOptions": {
-    "target": "es2022",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "noImplicitAny": true,
-    "sourceMap": true,
-    "outDir": "dist",
-    "baseUrl": ".",
-    "paths": {
-      "*": ["node_modules/*"]
+    "compilerOptions": {
+        "target": "es2022",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "sourceMap": true,
+        "outDir": "dist",
+        "baseUrl": ".",
+        "paths": {
+            "*": [
+                "node_modules/*"
+            ]
+        },
+        "esModuleInterop": true,
+        "skipLibCheck": true
     },
-    "esModuleInterop": true
-  },
-  "include": [
-    "electron/**/*"
-  ]
+    "include": [
+        "electron/**/*",
+        "lib/**/*"
+    ]
 }

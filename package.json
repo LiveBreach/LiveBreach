@@ -2,11 +2,16 @@
   "name": "live-breach",
   "version": "0.1.0",
   "private": true,
+  "main": "dist/electron/main.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "electron:build": "tsc -p tsconfig.electron.json",
+    "electron:start": "electron . --no-sandbox",
+    "electron:dev": "npm run electron:build && cross-env ELECTRON_START_URL=http://localhost:3000 npm run electron:start",
+    "dev:all": "concurrently -k \"npm run dev\" \"wait-on tcp:3000 && npm run electron:dev\""
   },
   "dependencies": {
     "next": "16.1.4",
