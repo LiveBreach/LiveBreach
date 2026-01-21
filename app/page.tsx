@@ -8,6 +8,7 @@ type ScanTarget = {
     type: string;
     vuln: string;
     severity: 'high' | 'medium' | 'low';
+    aiAnalysis?: string;
 };
 
 export default function Home() {
@@ -159,23 +160,30 @@ export default function Home() {
                                 <h3 className="text-sm font-bold text-neutral-500 uppercase tracking-widest mb-4">Derived Targets ({targets.length})</h3>
                                 <div className="grid gap-4">
                                     {targets.map((target) => (
-                                        <div key={target.id} className="group bg-neutral-900/40 border border-neutral-800 hover:border-red-500/50 rounded-xl p-5 transition-all flex items-center justify-between">
-                                            <div className="flex items-start gap-4">
-                                                <div className="p-3 bg-red-500/10 rounded-lg text-red-500 text-xl">⚠</div>
-                                                <div>
-                                                    <h4 className="font-mono text-lg text-white mb-1">{target.file}</h4>
-                                                    <div className="flex gap-2">
-                                                        <span className="text-xs px-2 py-1 bg-neutral-800 rounded text-neutral-300">{target.type}</span>
-                                                        <span className="text-xs px-2 py-1 bg-red-900/30 text-red-400 rounded border border-red-900/50">{target.vuln}</span>
+                                        <div key={target.id} className="group bg-neutral-900/40 border border-neutral-800 hover:border-red-500/50 rounded-xl p-5 transition-all flex flex-col gap-4">
+                                            <div className="flex items-start justify-between">
+                                                <div className="flex items-start gap-4">
+                                                    <div className="p-3 bg-red-500/10 rounded-lg text-red-500 text-xl">⚠</div>
+                                                    <div>
+                                                        <h4 className="font-mono text-lg text-white mb-1">{target.file}</h4>
+                                                        <div className="flex gap-2">
+                                                            <span className="text-xs px-2 py-1 bg-neutral-800 rounded text-neutral-300">{target.type}</span>
+                                                            <span className="text-xs px-2 py-1 bg-red-900/30 text-red-400 rounded border border-red-900/50">{target.vuln}</span>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <button
+                                                    onClick={() => handleAttack(target)}
+                                                    className="px-4 py-2 bg-neutral-800 hover:bg-white hover:text-black text-neutral-300 rounded text-sm font-mono transition-colors"
+                                                >
+                                                    &gt; EXPLOIT
+                                                </button>
                                             </div>
-                                            <button
-                                                onClick={() => handleAttack(target)}
-                                                className="px-4 py-2 bg-neutral-800 hover:bg-white hover:text-black text-neutral-300 rounded text-sm font-mono transition-colors"
-                                            >
-                                                &gt; EXPLOIT
-                                            </button>
+                                            {target.aiAnalysis && (
+                                                <div className="pl-14 text-sm text-neutral-400 font-mono border-l-2 border-neutral-800">
+                                                    <span className="text-blue-400 font-bold">AI ANALYSIS:</span> {target.aiAnalysis}
+                                                </div>
+                                            )}
                                         </div>
                                     ))}
                                 </div>
